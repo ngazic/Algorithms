@@ -1,3 +1,6 @@
+// Problem definition: Find index of searched value in sorted array
+
+
 // O(log(n)) time | O(log(n)) space
 
 function binarySearchRecursion(array, searchValue) {
