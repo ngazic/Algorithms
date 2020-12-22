@@ -6,9 +6,13 @@ Assume that there will be at most one pair of numbers summing up to the target s
 Sample input: [3, 5, -4, 8, 11, 1, -1, 6], 10
 Sample output: [-1, 11] */
 
+/*
+========================
+solution 1
+*/
 
 // Time O(n**2) | Space (O(1))
-function twoNumberSum(array, sum) {
+function twoNumberSum1(array, sum) {
   const result = [];
   for (let i = 0; i < array.length; i++) {
     for (let j = i + 1; j < array.length; j++) {
@@ -22,9 +26,27 @@ function twoNumberSum(array, sum) {
   return result;
 }
 
+/*
+========================
+solution 2 => using sorted array  and moving left and right pointers  
+
+          [-200, -149, ..., 2, 6, 100]
+            |                      |
+            L                      R
+
+*/
+// Time O(nlog(n)) | Space (O(1))
+
+
+
+/*
+========================
+solution 3 => using hash tables (dictionaries, objects)
+*/
+
 // Test
 
 const testArray = [3, 5, -4, 8, 11, 1, -1, 6]
 const testSum = 10;
 
-console.log(`Result is:  ${twoNumberSum(testArray, testSum)}`);
+console.log(`Result is:  ${twoNumberSum1(testArray, testSum)}`);
