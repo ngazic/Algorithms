@@ -1,27 +1,27 @@
 /*
-Write a function that takes in a Binary Tree and returns a list of its branch sums (ordered from leftmost branch sum to rightmost branch sum). 
-A branch sum is the sum of all values in a Binary Tree branch. A Binary Tree branch is a path of nodes in a tree that starts at the root node and ends at any leaf node. 
+Write a function that takes in a Binary Tree and returns a list of its branch sums (ordered from leftmost branch sum to rightmost branch sum).
+A branch sum is the sum of all values in a Binary Tree branch. A Binary Tree branch is a path of nodes in a tree that starts at the root node and ends at any leaf node.
 Each Binary Tree node has a value stored in a property called "value" and two children nodes stored in properties called "left" and "right," respectively.
  Children nodes can either be Binary Tree nodes themselves or the None (null) value.
 */
 
-// O() time | O() space
+// O(n) time | O(n) space (best case balanced tree O(log(n))) ==> n is the number of nodes
 function branchSums(tree) {
   const result = [];
-  helper(tree, 0, result);
-  console.log(`RESULT IS ${result}`);
+  calculateBranchSums(tree, 0, result);
+  return result;
 }
-function helper(node, nodeSum, finalResult) {
+
+function calculateBranchSums(node, nodeSum, finalResult) {
   if (!node) {
     return 0;
   }
-  console.log(node.value);
-  helper(node.left, node.value + nodeSum, finalResult);
-  // finalResult.push(node.value + nodeSum);
+  if (!node.left && !node.right) 
+    finalResult.push(node.value + nodeSum);
+  }
+  calculateBranchSums(node.left, node.value + nodeSum, finalResult);
+  const rightLeaf = calculateBranchSums(node.right, node.value + nodeSum, finalResult);
   console.log(`Left leaf ${node.value} : sum ${node.value + nodeSum}`);
-  const rightLeaf = helper(node.right, node.value + nodeSum, finalResult);
-  finalResult.push(node.value + nodeSum);
-}
 
 //Test
 
@@ -71,4 +71,6 @@ node4.right = node10;
  *
  */
 
-branchSums(myTree);
+const result = branchSums(myTree);
+
+console.log(`===== THE RESULT IS ${result} ======`)
