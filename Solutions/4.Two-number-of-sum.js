@@ -16,7 +16,7 @@ function twoNumberSum1(array, sum) {
   const result = [];
   for (let i = 0; i < array.length; i++) {
     for (let j = i + 1; j < array.length; j++) {
-      if(array[i] + array[j] ===sum) {
+      if (array[i] + array[j] === sum) {
         result.push(array[i]);
         result.push(array[j]);
         break;
@@ -30,23 +30,53 @@ function twoNumberSum1(array, sum) {
 ========================
 solution 2 => using sorted array  and moving left and right pointers  
 
-          [-200, -149, ..., 2, 6, 100]
+          [-20, -14, -1, ..., 2, 6, 100]
             |                      |
             L                      R
 
 */
 // Time O(nlog(n)) | Space (O(1))
 
-
+function twoNumberSum2(array, sum) {
+  array.sort((a, b) => {
+    return a - b;
+  });
+  let left = 0;
+  let right = array.length - 1;
+  while (left < right) {
+    // console.log(`elements: [${array[left]},${array[right]}], sum ${array[left] + array[right]}`);
+    if (array[left] + array[right] === sum) {
+      return [array[left], array[right]];
+    } else if (array[left] + array[right] > sum) {
+      right--;
+    } else {
+      left++;
+    }
+  }
+  return [];
+}
 
 /*
 ========================
 solution 3 => using hash tables (dictionaries, objects)
 */
 
+//Time O(n) | Space O(n)
+
+function twoNumberSum3(array, sum) {
+  const hashTable = {};
+  for (const item of array) {
+    if (!hashTable[sum - item]) {
+      hashTable[item] = true;
+    } else {
+      return [item, sum - item];
+    }
+  }
+}
+
 // Test
 
-const testArray = [3, 5, -4, 8, 11, 1, -1, 6]
+const testArray = [3, 5, -4, 8, 11, 1, -1, 6];
 const testSum = 10;
 
-console.log(`Result is:  ${twoNumberSum1(testArray, testSum)}`);
+console.log(`Result is:  ${twoNumberSum3(testArray, testSum)}`);
