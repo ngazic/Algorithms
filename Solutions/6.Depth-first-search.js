@@ -44,7 +44,7 @@ class TreeNode {
   }
   depthFirstSearch(array) {
     array.push(this.name);
-    console.log(`I'm in the ${this.name}`);
+    // console.log(`I'm in the ${this.name}`);
     for(let child of this.children) {
       child.depthFirstSearch(array)
     }
