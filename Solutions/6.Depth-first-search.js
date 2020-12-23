@@ -33,7 +33,7 @@ object visual representation:
 
 */
 
-class Node {
+class TreeNode {
   constructor(name) {
     this.name = name;
     this.children = [];
@@ -46,13 +46,21 @@ class Node {
     array.push(this.name);
     console.log(`I'm in the ${this.name}`);
     for(let child of this.children) {
-      child.depthFirsSearch(array)
+      child.depthFirstSearch(array)
     }
     return array;
   }
 }
 
-const test = new Node("A");
-test.addChild(new Node("B")).addChild(new Node("C")).addChild(new Node("D"));
-test[0].addChild(new Node())
-console.log(test);
+const graph = new TreeNode("A");
+graph.addChild(new TreeNode("B")).addChild(new TreeNode("C")).addChild(new TreeNode("D"));
+graph.children[0].addChild(new TreeNode("E")).addChild(new TreeNode("F"));
+graph.children[2].addChild(new TreeNode("G")).addChild(new TreeNode("H"));
+graph.children[0].children[1].addChild(new TreeNode("I")).addChild(new TreeNode("J"));
+graph.children[2].children[0].addChild(new TreeNode("K"));
+const test1 = [];
+graph.depthFirstSearch(test1);
+
+// Test
+
+console.log(`The result array is: ${test1}`);
