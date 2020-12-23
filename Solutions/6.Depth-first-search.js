@@ -54,5 +54,5 @@ class Node {
 
 const test = new Node("A");
 test.addChild(new Node("B")).addChild(new Node("C")).addChild(new Node("D"));
-test
+test[0].addChild(new Node())
 console.log(test);
