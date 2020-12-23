@@ -36,6 +36,9 @@ class DoubleLinkedList {
     }
     return currentNode !== null;
   }
+  remove(node) {
+    
+  }
 }
 
 const testList = new DoubleLinkedList();
