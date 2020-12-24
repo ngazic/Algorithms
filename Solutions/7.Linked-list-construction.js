@@ -29,6 +29,72 @@ class DoubleLinkedList {
     this.head = null;
     this.tail = null;
   }
+  setHead(node) {
+    if (!this.head) {
+      this.head = node;
+      this.tail = node;
+      return;
+    }
+    this.insertBefore(this.head, node);
+  }
+  setTail(node) {
+    if (!this.tail) {
+      this.setHead(node);
+      return;
+    }
+    this.insertAfter(this.tail, node);
+  }
+  insertAtPosition(position, nodeToInsert) {
+    if (position === 0) {
+      this.setHead(nodeToInsert);
+      return;
+    }
+    let currentNode = this.head.next;
+    let currentPosition = 1;
+    while (currentNode && position !== currentPosition) {
+      currentNode = currentNode.next;
+      currentPosition++;
+    }
+    if (currentNode) {
+      this.insertBefore(currentNode, nodeToInsert);
+    } else {
+      this.setTail(nodeToInsert);
+    }
+  }
+  insertBefore(node, nodeToInsert) {
+    if (nodeToInsert === this.head && nodeToInsert === this.tail) return;
+    this.remove(nodeToInsert);
+    nodeToInsert.prev = node.prev;
+    nodeToInsert.next = node;
+    if (!node.prev) {
+      this.head = nodeToInsert;
+    } else {
+      node.prev.next = nodeToInsert;
+    }
+    node.prev = nodeToInsert;
+  }
+  insertAfter(node, nodeToInsert) {
+    if (nodeToInsert == this.head && nodeToInsert == this.tail) return;
+    this.remove(nodeToInsert);
+    nodeToInsert.next = node.next;
+    nodeToInsert.prev = node;
+    if (!node.next) {
+      this.tail = nodeToInsert;
+    } else {
+      node.next.prev = nodeToInsert;
+    }
+    node.next = nodeToInsert;
+  }
+  removeNodesWithValue(value) {
+    let currentNode = this.head;
+    while (currentNode) {
+      let nodeToRemove = currentNode;
+      currentNode = currentNode.next;
+      if (currentNode.value === value) {
+        this.remove(nodeToRemove);
+      }
+    }
+  }
   containsNodeWithValue(value) {
     let currentNode = this.head;
     while (currentNode && currentNode.value !== value) {
@@ -37,99 +103,39 @@ class DoubleLinkedList {
     return currentNode !== null;
   }
   remove(node) {
-    
+    if (node === this.head) {
+      this.head = node.next;
+    }
+    if (node === this.tail) {
+      this.tail = node.prev;
+    }
+    this.removeNodeBindings(node);
+  }
+  removeNodeBindings(node) {
+    if (node.next) {
+      node.next.prev = node.prev;
+    }
+    if (node.prev) {
+      node.prev.next = node.next;
+    }
+    node.prev = null;
+    node.next = null;
   }
 }
 
 const testList = new DoubleLinkedList();
-console.log(testList.containsNodeWithValue("test"));
+const item1 = new ListNode("one");
+const item2 = new ListNode("two");
+const item3 = new ListNode("three");
+const item4 = new ListNode("four");
+const item5 = new ListNode("tfive");
+const item6 = new ListNode("six");
 
-// class SinglyLinkedList {
-//   constructor(headNode) {
-//     this.head = new ListNode(headNode);
-//   }
-//   addNew(node) {
-//     let currentNode = this.head;
-//     while (currentNode.next) {
-//       currentNode = currentNode.next;
-//     }
-//     currentNode.next = new ListNode(node);
-//   }
-//   printList() {
-//     let currentNode = this.head;
-//     while (currentNode) {
-//       console.log(currentNode.value);
-//       currentNode = currentNode.next;
-//     }
-//   }
-//   delete(node) {
-//     let currentNode = this.head;
-//     let previousNode = null;
+//Test
 
-//     do {
-//       if (currentNode.value === node) {
-//         if (!previousNode) {
-//           this.head = this.head.next;
-//           break;
-//         }
-//         previousNode.next = currentNode.next;
-//         break;
-//       }
-//       previousNode = currentNode;
-//       currentNode = currentNode.next;
-//     } while (currentNode);
+testList.setHead(item3);
+testList.setTail(item2);
+testList.insertAtPosition(5, item6);
 
-//     return this;
-//   }
-//   clearList() {
-//     this.head = null;
-//     return this;
-//   }
-//   insertAfter(node, value) {
-//     let currentNode = this.head;
-//     do {
-//       if (currentNode.value === node) {
-//         let newNode = new ListNode(value);
-//         newNode.next = currentNode.next;
-//         currentNode.next = newNode;
-//         return this;
-//       }
-//       currentNode = currentNode.next;
-//     } while (currentNode);
-//   }
-//   insertBefore(node, value) {
-//     let currentNode = this.head;
-//     let previousNode = null;
-//     do {
-//       if (currentNode.value === node) {
-//         if (!previousNode) {
-//           this.head = new ListNode(value);
-//           this.head.next = currentNode;
-//           break;
-//         }
-//         const newNode = new ListNode(value);
-//         previousNode.next = newNode;
-//         newNode.next = currentNode;
-//         break;
-//       }
-//       previousNode = currentNode;
-//       currentNode = currentNode.next;
-//     } while (currentNode);
-//     return this;
-//   }
-// }
-
-// const myList = new SinglyLinkedList("mirza");
-// myList.addNew("ado");
-// myList.addNew("benjo");
-// myList.addNew("seki");
-// myList.printList();
-// // myList.delete('benjo')
-// // myList.delete('mirza')
-// // myList.clearList();
-// // myList.insertBefore("benjo", "gaza");
-// // myList.insertBefore("mirza", "gaza");
-// // myList.insertAfter("seki", "gaza");
-// console.log("\n After action performed \n");
-// myList.printList();
-// // console.log(myList);
+console.log(testList);
+console.log(testList.containsNodeWithValue("three"));
