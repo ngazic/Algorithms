@@ -15,25 +15,21 @@
 //O(n**2) Time | O(1) Space
 function insertionSort(arr) {
  for(let i = 1; i<arr.length; i++) {
-   console.log(`i: ${i}`)
    for(let j=i;j>=0;j--){
      if(arr[j] > arr[j+1]) {
        swap(j, j+1, arr);
       }else {
         break;
       }
-      console.log(arr)
    }
   //  console.log(arr)
   }
-  console.log(arr)
 }
 
 // OTHER WAY OF WRITTING CODE USING WHILE LOOP:
 //O(n**2) Time | O(1) Space
 function insertionSort2(arr) {
  for(let i = 1; i<arr.length; i++) {
-   console.log(`i: ${i}`)
    let j = i;
   while(j>0 && arr[j] < arr[j-1]) {
     swap(j,j-1, arr);
@@ -41,7 +37,6 @@ function insertionSort2(arr) {
   }
   //  console.log(arr)
   }
-  console.log(arr)
 }
 
 function swap(i, j, arr) {
