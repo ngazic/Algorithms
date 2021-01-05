@@ -30,7 +30,14 @@ Output:
 
  function riverSizes (matrix) {
    const traversalMatrix = [...Array(matrix.length)].map(()=>Array(matrix[0].length).fill(false));
-   console.log(traversalMatrix);
+   const solution = [];
+   followRivers(matrix, traversalMatrix, solution);
+ }
+
+ function followRivers(input, helper, solution, i=0,j=0) {
+   if(i >= input.length) return;
+   if(j>= input[0].length) return;
+   if(input[i][j] === 1 )
  }
 
  //Test
