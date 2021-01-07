@@ -38,3 +38,10 @@ Sample output: [28, 26]
    }
    return bestFit
  }
+
+
+ //Test 
+
+ const array1 = [-1, 5, 10, 20, 28, 3];
+ const array2 = [26, 134, 135, 15, 17];
+ 
