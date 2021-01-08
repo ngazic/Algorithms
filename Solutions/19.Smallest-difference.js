@@ -10,7 +10,16 @@ Sample input: [-1, 5, 10, 20, 28, 3], [26, 134, 135, 15, 17]
 Sample output: [28, 26]
  */
 
+/*
+  Solution: sort arrays and move pointers according to differrences 
 
+  [-1,3, 5, 10, 20, 28], [15, 17, 26,134, 135 ]
+    |                      |  
+    L                      R
+*/
+
+
+//O(nlog(n) + mlog(m)) Time | O(1) Space
  function smallestDifference(A, B) {
    A.sort((a,b) => {
      return a-b;
@@ -18,25 +27,30 @@ Sample output: [28, 26]
    B.sort((a,b) => {
      return a-b;
    })
-   let aPointer = 0;
-   let bPointer = 0;
+   let idxOne = 0;
+   let idxTwo = 0;
    let bestFit = Infinity;
-   let solution = [];
-   while(aPointer < A.length && bPointer < B.length) {
-     const currentDifference = Math.abs(A[aPointer] - B[bPointer]);
-     if(currentDifference === 0){
-       return [A[aPointer,B[bPointer]]];
-     }
-     else if(currentDifference < Math.abs(bestFit) ) {
-       bestFit = currentDifference;
-       bPointer++;
-       solution = [A[aPointer], b[bPointer]];
-      }else{
-        aPointer++;
-        solution = [A[aPointer], b[bPointer]];
-     }
+   let currentDifferrence = Infinity;
+   let smallestPair = [];
+   while(idxOne < A.length && idxTwo < B.length) {
+     const firstNmbr = A[idxOne];
+     const secondNmbr = B[idxTwo];
+    if(firstNmbr < secondNmbr){
+      currentDifferrence = secondNmbr - firstNmbr;
+      idxOne++;
+    }else if (firstNmbr > secondNmbr) {
+      currentDifferrence = firstNmbr - secondNmbr;
+      idxTwo++;
+    }else {
+      return [firstNmbr, secondNmbr];
+    }
+
+    if(bestFit > currentDifferrence) {
+      bestFit = currentDifferrence;
+      smallestPair = [firstNmbr, secondNmbr]
+    }
    }
-   return bestFit
+   return smallestPair;
  }
 
 
@@ -44,4 +58,6 @@ Sample output: [28, 26]
 
  const array1 = [-1, 5, 10, 20, 28, 3];
  const array2 = [26, 134, 135, 15, 17];
+
+ console.log(smallestDifference(array1, array2));
  
